@@ -2,8 +2,17 @@
   
   List.Controller =
     listHeader: ->
-      headerView = @getHeaderView()
+      links = @getLinksCollection()
+      headerView = @getHeaderView links
       App.headerRegion.show headerView
 
-    getHeaderView: ->
-      new List.Header
+    getLinksCollection: ->
+      new Backbone.Collection [
+        { name: "Users" }
+        { name: "Leads" }
+        { name: "Appointments" }
+      ]
+
+    getHeaderView: (links) ->
+      new List.Headers
+        collection: links

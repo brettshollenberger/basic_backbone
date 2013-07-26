@@ -15088,12 +15088,26 @@ _.extend(Marionette.Module, {
   this.Demo.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
     return List.Controller = {
       listHeader: function() {
-        var headerView;
-        headerView = this.getHeaderView();
+        var headerView, links;
+        links = this.getLinksCollection();
+        headerView = this.getHeaderView(links);
         return App.headerRegion.show(headerView);
       },
-      getHeaderView: function() {
-        return new List.Header;
+      getLinksCollection: function() {
+        return new Backbone.Collection([
+          {
+            name: "Users"
+          }, {
+            name: "Leads"
+          }, {
+            name: "Appointments"
+          }
+        ]);
+      },
+      getHeaderView: function(links) {
+        return new List.Headers({
+          collection: links
+        });
       }
     };
   });
@@ -15104,8 +15118,8 @@ _.extend(Marionette.Module, {
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   this.Demo.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
-    var _ref;
-    return List.Header = (function(_super) {
+    var _ref, _ref1;
+    List.Header = (function(_super) {
       __extends(Header, _super);
 
       function Header() {
@@ -15113,17 +15127,36 @@ _.extend(Marionette.Module, {
         return _ref;
       }
 
-      Header.prototype.template = "header/list/templates/list_header";
+      Header.prototype.template = "header/list/templates/_header";
+
+      Header.prototype.tagName = "li";
 
       return Header;
 
     })(Marionette.ItemView);
+    return List.Headers = (function(_super) {
+      __extends(Headers, _super);
+
+      function Headers() {
+        _ref1 = Headers.__super__.constructor.apply(this, arguments);
+        return _ref1;
+      }
+
+      Headers.prototype.template = "header/list/templates/headers";
+
+      Headers.prototype.itemView = List.Header;
+
+      Headers.prototype.itemViewContainer = "ul";
+
+      return Headers;
+
+    })(Marionette.CompositeView);
   });
 
 }).call(this);
 (function() {
   this.JST || (this.JST = {});
-  this.JST["backbone/apps/header/list/templates/list_header"] = function(__obj) {
+  this.JST["backbone/apps/header/list/templates/_header"] = function(__obj) {
     if (!__obj) __obj = {};
     var __out = [], __capture = function(callback) {
       var out = __out, result;
@@ -15162,7 +15195,61 @@ _.extend(Marionette.Module, {
     }
     (function() {
       (function() {
-        __out.push('<div id="header" class="navbar">\n  <div class="navbar-inner">\n    <div class="container">\n      <div class="row">\n        <div class="pull-left">\n          <span class="brand">Backbone + Rails Demo</span>\n        </div>\n        <ul class="nav pull-right">\n          <li class="active">\n            <a href="#">Linky</a>\n          </li>\n          <li>\n            <a href="#">Lank</a>\n          </li>\n          <li>\n            <a href="#">You Get the Picture</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>\n');
+        __out.push('<a href="#">');
+      
+        __out.push(__sanitize(this.name));
+      
+        __out.push('</a>\n');
+      
+      }).call(this);
+      
+    }).call(__obj);
+    __obj.safe = __objSafe, __obj.escape = __escape;
+    return __out.join('');
+  };
+}).call(this);
+(function() {
+  this.JST || (this.JST = {});
+  this.JST["backbone/apps/header/list/templates/headers"] = function(__obj) {
+    if (!__obj) __obj = {};
+    var __out = [], __capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return __safe(result);
+    }, __sanitize = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else if (typeof value !== 'undefined' && value != null) {
+        return __escape(value);
+      } else {
+        return '';
+      }
+    }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+    __safe = __obj.safe = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else {
+        if (!(typeof value !== 'undefined' && value != null)) value = '';
+        var result = new String(value);
+        result.ecoSafe = true;
+        return result;
+      }
+    };
+    if (!__escape) {
+      __escape = __obj.escape = function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      };
+    }
+    (function() {
+      (function() {
+        __out.push('<div id="header" class="navbar">\n  <div class="navbar-inner">\n    <div class="container">\n      <div class="row">\n        <div class="pull-left">\n          <span class="brand">Backbone + Rails Demo</span>\n        </div>\n        <ul class="nav pull-right">\n\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>\n');
       
       }).call(this);
       

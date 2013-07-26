@@ -6,15 +6,7 @@
           <span class="brand">Backbone + Rails Demo</span>
         </div>
         <ul class="nav pull-right">
-          <li class="active">
-            <a href="#">Linky</a>
-          </li>
-          <li>
-            <a href="#">Lank</a>
-          </li>
-          <li>
-            <a href="#">You Get the Picture</a>
-          </li>
+
         </ul>
       </div>
     </div>
