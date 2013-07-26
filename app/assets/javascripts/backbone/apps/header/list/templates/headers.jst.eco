@@ -5,7 +5,7 @@
         <div class="pull-left">
           <span class="brand">Backbone + Rails Demo</span>
         </div>
-        <ul class="nav pull-right">
+        <ul class="nav pull-right" id="nav">
 
         </ul>
       </div>

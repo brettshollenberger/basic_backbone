@@ -14968,6 +14968,55 @@ _.extend(Marionette.Module, {
 
 }).call(this);
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  this.Demo.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+    var API, _ref, _ref1;
+    Entities.Header = (function(_super) {
+      __extends(Header, _super);
+
+      function Header() {
+        _ref = Header.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      return Header;
+
+    })(Backbone.Model);
+    Entities.HeaderCollection = (function(_super) {
+      __extends(HeaderCollection, _super);
+
+      function HeaderCollection() {
+        _ref1 = HeaderCollection.__super__.constructor.apply(this, arguments);
+        return _ref1;
+      }
+
+      HeaderCollection.prototype.model = Entities.Header;
+
+      return HeaderCollection;
+
+    })(Backbone.Collection);
+    API = {
+      getHeaders: function() {
+        return new Entities.HeaderCollection([
+          {
+            name: "Users"
+          }, {
+            name: "Leads"
+          }, {
+            name: "Appointments"
+          }
+        ]);
+      }
+    };
+    return App.reqres.setHandler("header:entities", function() {
+      return API.getHeaders();
+    });
+  });
+
+}).call(this);
+(function() {
   this.Demo.module("FooterApp", function(FooterApp, App, Backbone, Marionette, $, _) {
     var API;
     this.startWithParent = false;
@@ -15089,20 +15138,9 @@ _.extend(Marionette.Module, {
     return List.Controller = {
       listHeader: function() {
         var headerView, links;
-        links = this.getLinksCollection();
+        links = App.request("header:entities");
         headerView = this.getHeaderView(links);
         return App.headerRegion.show(headerView);
-      },
-      getLinksCollection: function() {
-        return new Backbone.Collection([
-          {
-            name: "Users"
-          }, {
-            name: "Leads"
-          }, {
-            name: "Appointments"
-          }
-        ]);
       },
       getHeaderView: function(links) {
         return new List.Headers({
@@ -15146,7 +15184,7 @@ _.extend(Marionette.Module, {
 
       Headers.prototype.itemView = List.Header;
 
-      Headers.prototype.itemViewContainer = "ul";
+      Headers.prototype.itemViewContainer = "#nav";
 
       return Headers;
 
@@ -15249,7 +15287,7 @@ _.extend(Marionette.Module, {
     }
     (function() {
       (function() {
-        __out.push('<div id="header" class="navbar">\n  <div class="navbar-inner">\n    <div class="container">\n      <div class="row">\n        <div class="pull-left">\n          <span class="brand">Backbone + Rails Demo</span>\n        </div>\n        <ul class="nav pull-right">\n\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>\n');
+        __out.push('<div id="header" class="navbar">\n  <div class="navbar-inner">\n    <div class="container">\n      <div class="row">\n        <div class="pull-left">\n          <span class="brand">Backbone + Rails Demo</span>\n        </div>\n        <ul class="nav pull-right" id="nav">\n\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>\n');
       
       }).call(this);
       
@@ -15258,6 +15296,7 @@ _.extend(Marionette.Module, {
     return __out.join('');
   };
 }).call(this);
+
 
 
 

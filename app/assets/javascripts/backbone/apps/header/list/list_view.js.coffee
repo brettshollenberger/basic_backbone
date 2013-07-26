@@ -9,4 +9,4 @@
   class List.Headers extends Marionette.CompositeView
     template: "header/list/templates/headers"
     itemView: List.Header
-    itemViewContainer: "ul"
+    itemViewContainer: "#nav"
