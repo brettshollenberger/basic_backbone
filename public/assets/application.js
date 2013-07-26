@@ -14955,6 +14955,7 @@ _.extend(Marionette.Module, {
       footerRegion: "#footer-region"
     });
     App.addInitializer(function() {
+      App.module("HeaderApp").start();
       return App.module("FooterApp").start();
     });
     App.on("initalize:after", function() {
@@ -15060,6 +15061,108 @@ _.extend(Marionette.Module, {
     (function() {
       (function() {
         __out.push('<div id="footer">\n  <div class="container">\n    <p class="muted">Backbone Example</p>\n  </div>\n</div>\n');
+      
+      }).call(this);
+      
+    }).call(__obj);
+    __obj.safe = __objSafe, __obj.escape = __escape;
+    return __out.join('');
+  };
+}).call(this);
+(function() {
+  this.Demo.module("HeaderApp", function(HeaderApp, App, Backbone, Marionette, $, _) {
+    var API;
+    this.startWithParent = false;
+    API = {
+      listHeader: function() {
+        return HeaderApp.List.Controller.listHeader();
+      }
+    };
+    return HeaderApp.on("start", function() {
+      return API.listHeader();
+    });
+  });
+
+}).call(this);
+(function() {
+  this.Demo.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
+    return List.Controller = {
+      listHeader: function() {
+        var headerView;
+        headerView = this.getHeaderView();
+        return App.headerRegion.show(headerView);
+      },
+      getHeaderView: function() {
+        return new List.Header;
+      }
+    };
+  });
+
+}).call(this);
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  this.Demo.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
+    var _ref;
+    return List.Header = (function(_super) {
+      __extends(Header, _super);
+
+      function Header() {
+        _ref = Header.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Header.prototype.template = "header/list/templates/list_header";
+
+      return Header;
+
+    })(Marionette.ItemView);
+  });
+
+}).call(this);
+(function() {
+  this.JST || (this.JST = {});
+  this.JST["backbone/apps/header/list/templates/list_header"] = function(__obj) {
+    if (!__obj) __obj = {};
+    var __out = [], __capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return __safe(result);
+    }, __sanitize = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else if (typeof value !== 'undefined' && value != null) {
+        return __escape(value);
+      } else {
+        return '';
+      }
+    }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+    __safe = __obj.safe = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else {
+        if (!(typeof value !== 'undefined' && value != null)) value = '';
+        var result = new String(value);
+        result.ecoSafe = true;
+        return result;
+      }
+    };
+    if (!__escape) {
+      __escape = __obj.escape = function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      };
+    }
+    (function() {
+      (function() {
+        __out.push('<div id="header" class="navbar">\n  <div class="navbar-inner">\n    <div class="container">\n      <div class="row">\n        <div class="pull-left">\n          <span class="brand">Backbone + Rails Demo</span>\n        </div>\n        <ul class="nav pull-right">\n          <li class="active">\n            <a href="#">Linky</a>\n          </li>\n          <li>\n            <a href="#">Lank</a>\n          </li>\n          <li>\n            <a href="#">You Get the Picture</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>\n');
       
       }).call(this);
       

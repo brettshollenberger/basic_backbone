@@ -6943,6 +6943,11 @@ html, body {
   min-height: 100%;
 }
 
+/* line 2, ../../app/assets/stylesheets/apps/header.css.scss */
+#header .container {
+  width: 940px;
+}
+
 /* line 1, ../../app/assets/stylesheets/apps/footer.css.scss */
 #push, #footer {
   height: 60px;
@@ -6981,4 +6986,8 @@ html, body {
 #footer p {
   margin: 20px 0;
   text-align: center;
+}
+/* line 2, ../../../app/assets/stylesheets/apps/header.css.scss */
+#header .container {
+  width: 940px;
 }
